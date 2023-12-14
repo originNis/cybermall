@@ -1,5 +1,6 @@
 package com.rybin.cybermall.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rybin.cybermall.beans.ResultVO;
 import com.rybin.cybermall.beans.entity.User;
 import com.rybin.cybermall.mapper.UserDAO;
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public ResultVO userRegist(String username, String password) {
-        User user = userDAO.queryUserByName(username);
+        User user = userDAO.selectOne(new QueryWrapper<User>().eq("username", username));
 
         if (user == null) {
             user = new User(
@@ -30,8 +31,8 @@ public class UserServiceImpl implements UserService {
                     new Date(),
                     new Date()
             );
-            if (userDAO.insertUser(user) > 0) {
-                return new ResultVO(10000, "注册成功", null);
+            if (userDAO.insert(user) > 0) {
+                return new ResultVO(10000, "注册成功", user);
             } else {
                 return new ResultVO(10001, "注册失败", null);
             }
@@ -42,12 +43,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultVO userLogin(String username, String password) {
-        User user = userDAO.queryUserByName(username);
+        User user = userDAO.selectOne(new QueryWrapper<User>().eq("username", username));
         if (user == null) {
             return new ResultVO(10002, "用户名不存在", null);
         } else {
             if (user.getPassword().equals(MD5Utils.md5(password))) {
-                return new ResultVO(10004, "登录成功", null);
+                return new ResultVO(10004, "登录成功", user);
             } else {
                 return new ResultVO(10003, "密码不正确", null);
             }

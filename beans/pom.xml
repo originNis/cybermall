@@ -24,6 +24,34 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <!-- mp依赖放在beans下是因为实体类也需要使用其中的注解 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.3.1</version>
+        </dependency>
+        <!--MyBatis-Plus代码生成器用于逆向工程-->
+<!--        <dependency>-->
+<!--            <groupId>com.baomidou</groupId>-->
+<!--            <artifactId>mybatis-plus-generator</artifactId>-->
+<!--            <version>3.4.1</version>-->
+<!--        </dependency>-->
+
+        <!-- 逆向工程模板引擎，mp默认velocity   -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.velocity</groupId>-->
+<!--            <artifactId>velocity-engine-core</artifactId>-->
+<!--            <version>2.3</version>-->
+<!--        </dependency>-->
+
+        <!-- 使用freemarker作为模板引擎需要显式声明 -->
+<!--        <dependency>-->
+<!--            <groupId>org.freemarker</groupId>-->
+<!--            <artifactId>freemarker</artifactId>-->
+<!--            <version>2.3.31</version>-->
+<!--        </dependency>-->
+
+
         <dependency>
             <groupId>com.rybin</groupId>
             <artifactId>common</artifactId>

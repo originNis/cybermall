@@ -1,7 +1,6 @@
 package com.rybin.cybermall;
 
 import com.rybin.cybermall.beans.Item;
-import com.rybin.cybermall.mapper.SelfMapper;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

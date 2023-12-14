@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "用户管理", description = "用户管理相关的接口说明")
 @RestController
 @RequestMapping("/user")
+// 解决跨域问题
+@CrossOrigin
 public class UserController {
 
     @Resource
