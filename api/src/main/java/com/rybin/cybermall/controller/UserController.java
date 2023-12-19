@@ -1,6 +1,7 @@
 package com.rybin.cybermall.controller;
 
 import com.rybin.cybermall.beans.ResultVO;
+import com.rybin.cybermall.beans.entity.Users;
 import com.rybin.cybermall.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -52,7 +53,11 @@ public class UserController {
             @Parameter(name = "password", description = "用户注册密码", required = true)
     })
     @PostMapping(value = "/regist")
-    public ResultVO regist(String username, String password) {
-        return userService.userRegist(username, password);
+    /*
+    @RequestBody只能修饰一个形参，用来接收一个JSON字符串，
+    而@RequestParam可以修饰多个形参，用来接收一个或多个URL参数
+     */
+    public ResultVO regist(@RequestBody Users user) {
+        return userService.userRegist(user.getUsername(), user.getPassword());
     }
 }

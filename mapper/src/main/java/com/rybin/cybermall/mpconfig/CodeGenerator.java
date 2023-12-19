@@ -48,12 +48,12 @@
 //        // 包配置
 //        PackageConfig pc = new PackageConfig();
 //        //pc.setModuleName(scanner("模块名"));
-//        pc.setParent("com.rybin.cybermall")
-//                .setEntity("beans.entity")
-//                .setMapper("mapper")
-//                .setService("service")
-//                .setServiceImpl("service.impl")
-//                .setController("controller");
+//        pc.setParent("com.rybin.cybermall.backer")
+//                .setEntity("beans.entity");
+//        //        .setMapper("mapper")
+//        //        .setService("service")
+//        //        .setServiceImpl("service.impl")
+//        //        .setController("controller");
 //        mpg.setPackageInfo(pc);
 //
 //        // 自定义配置

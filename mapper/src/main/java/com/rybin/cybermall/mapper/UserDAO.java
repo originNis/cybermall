@@ -1,7 +1,7 @@
 package com.rybin.cybermall.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rybin.cybermall.beans.entity.User;
+import com.rybin.cybermall.beans.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
     工作。
  */
 @Mapper
-public interface UserDAO extends BaseMapper<User> {
+public interface UserDAO extends BaseMapper<Users> {
 }
