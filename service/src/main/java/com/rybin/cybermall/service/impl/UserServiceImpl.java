@@ -1,5 +1,7 @@
 package com.rybin.cybermall.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rybin.cybermall.beans.ResponseStatus;
 import com.rybin.cybermall.beans.ResultVO;
@@ -49,7 +51,15 @@ public class UserServiceImpl implements UserService {
             return new ResultVO(ResponseStatus.FAIL, "用户名不存在", null);
         } else {
             if (user.getPassword().equals(MD5Utils.md5(password))) {
-                return new ResultVO(ResponseStatus.SUCCESS, "登录成功", user);
+                // 如果登陆成功，使用jwt生成验证token
+                String token = JWT.create() // 获取builder
+                        .withSubject(username) // 设置token携带的数据
+                        .withJWTId(user.getUserId() + "") // 设置token id
+                        .withIssuedAt(new Date()) // 设置签发时间
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 设置到期时间
+                        .sign(Algorithm.HMAC256("cybermall")); // 设置解密的密码并生成token
+
+                return new ResultVO(ResponseStatus.SUCCESS, token, user);
             } else {
                 return new ResultVO(ResponseStatus.FAIL, "密码不正确", null);
             }
