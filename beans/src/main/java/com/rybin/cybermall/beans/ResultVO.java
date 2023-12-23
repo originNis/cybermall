@@ -1,15 +1,21 @@
 package com.rybin.cybermall.beans;
 
-import com.rybin.cybermall.beans.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ResultVO {
     private Integer code;
     private String msg;
     private Object data;
+
+    public ResultVO() {
+    }
+
+    public ResultVO(Integer code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
 }

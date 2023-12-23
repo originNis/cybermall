@@ -60,7 +60,8 @@ public class UserServiceImpl implements UserService {
                         .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 设置到期时间
                         .sign(Algorithm.HMAC256("cybermall")); // 设置解密的密码并生成token
 
-                return new ResultVO(ResponseStatus.SUCCESS, token, user);
+
+               return new ResultVO(ResponseStatus.SUCCESS, "登陆成功", user);
             } else {
                 return new ResultVO(ResponseStatus.FAIL, "密码不正确", null);
             }

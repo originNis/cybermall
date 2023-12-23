@@ -14,13 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApiApplication.class)
 class ApiApplicationTests {
-    @Resource
-    SelfMapper mapper;
 
-    @Test
-    void testMybatisModule() {
-        Item item = mapper.getItemById(1);
-        System.out.println(item);
-    }
 
 }
