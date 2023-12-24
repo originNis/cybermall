@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rybin.cybermall.beans.ResponseStatus;
-import com.rybin.cybermall.beans.ResultVO;
+import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.beans.entity.Users;
 import com.rybin.cybermall.mapper.UserDAO;
 import com.rybin.cybermall.service.UserService;

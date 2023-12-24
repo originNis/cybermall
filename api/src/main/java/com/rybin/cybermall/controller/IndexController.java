@@ -1,6 +1,6 @@
 package com.rybin.cybermall.controller;
 
-import com.rybin.cybermall.beans.ResultVO;
+import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.service.IndexService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

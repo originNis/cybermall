@@ -1,4 +1,4 @@
-package com.rybin.cybermall.beans;
+package com.rybin.cybermall.beans.VO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.rybin.cybermall.service.impl;
 
 import com.rybin.cybermall.beans.ResponseStatus;
-import com.rybin.cybermall.beans.ResultVO;
+import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.beans.entity.IndexImg;
 import com.rybin.cybermall.mapper.IndexImgDAO;
 import com.rybin.cybermall.service.IndexService;

@@ -1,6 +1,6 @@
 package com.rybin.cybermall.controller;
 
-import com.rybin.cybermall.beans.ResultVO;
+import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.beans.entity.Users;
 import com.rybin.cybermall.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;

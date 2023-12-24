@@ -1,7 +1,7 @@
 package com.rybin.cybermall.service;
 
 
-import com.rybin.cybermall.beans.ResultVO;
+import com.rybin.cybermall.beans.VO.ResultVO;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface UserService {

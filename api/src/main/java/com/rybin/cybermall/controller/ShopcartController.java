@@ -1,7 +1,7 @@
 package com.rybin.cybermall.controller;
 
 import com.rybin.cybermall.beans.ResponseStatus;
-import com.rybin.cybermall.beans.ResultVO;
+import com.rybin.cybermall.beans.VO.ResultVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
