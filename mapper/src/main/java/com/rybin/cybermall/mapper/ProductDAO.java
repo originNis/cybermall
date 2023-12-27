@@ -15,11 +15,14 @@ public interface ProductDAO extends BaseMapper<ProductVO> {
         product_name,
         category_id,
         root_category_id,
+        content,
         sold_num,
         product_status,
         create_time,
         update_time
         FROM product
+        ORDER BY create_time DESC
+        LIMIT 0, #{size}
     """)
     @Results({
             @Result(column = "product_id",

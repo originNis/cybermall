@@ -48,7 +48,7 @@ public class ProductVO {
     /**
      * 商品内容 商品内容
      */
-    private Date content;
+    private String content;
 
     /**
      * 创建时间
