@@ -1,6 +1,7 @@
 package com.rybin.cybermall.controller;
 
 import com.rybin.cybermall.beans.VO.ResultVO;
+import com.rybin.cybermall.service.CategoryService;
 import com.rybin.cybermall.service.IndexService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,10 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     @Resource
     IndexService indexService;
+    @Resource
+    CategoryService categoryService;
 
     @Operation(summary = "首页轮播图展示", description = "返回在首页展示的轮播图的信息")
     @GetMapping("/indexImgs")
     public ResultVO listIndexImgs() {
         return indexService.listIndexImgs();
+    }
+
+    @Operation(summary = "首页分类展示", description = "返回在首页展示的分类的信息")
+    @GetMapping("/listCategories")
+    public ResultVO listCategories() {
+        return categoryService.listCategories();
     }
 }
