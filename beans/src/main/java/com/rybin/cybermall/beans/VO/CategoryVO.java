@@ -22,9 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CategoryVO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class CategoryVO {
 
     /**
      * 主键 分类id主键

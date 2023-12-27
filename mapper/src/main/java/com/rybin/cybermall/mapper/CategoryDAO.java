@@ -11,7 +11,7 @@ import java.util.List;
 public interface CategoryDAO extends BaseMapper<CategoryVO> {
 
     /*
-    嵌套映射三级商品分类
+    递归进行嵌套查询可以对n级类别进行查询
      */
     @Select("""
         SELECT category_id,
@@ -23,43 +23,11 @@ public interface CategoryDAO extends BaseMapper<CategoryVO> {
         category_pic,
         category_bg_color
         FROM category
-        WHERE category_level = 1;
-    """)
-    @Results(
-            @Result(column = "category_id", property = "subcategories", javaType = List.class,
-                    many = @Many(select =  "com.rybin.cybermall.mapper.CategoryDAO.listSecondLevelCategories"))
-    )
-    public List<CategoryVO> listCategories();
-
-    @Select("""
-        SELECT category_id,
-        category_name,
-        category_level,
-        parent_id,
-        category_icon,
-        category_slogan,
-        category_pic,
-        category_bg_color
-        FROM category
         WHERE parent_id = #{parentId};
     """)
     @Results(
             @Result(column = "category_id", property = "subcategories", javaType = List.class,
-                    many = @Many(select =  "com.rybin.cybermall.mapper.CategoryDAO.listThirdLevelCategories"))
+                    many = @Many(select =  "com.rybin.cybermall.mapper.CategoryDAO.listCategories"))
     )
-    public List<CategoryVO> listSecondLevelCategories(Integer parentId);
-
-    @Select("""
-        SELECT category_id,
-        category_name,
-        category_level,
-        parent_id,
-        category_icon,
-        category_slogan,
-        category_pic,
-        category_bg_color
-        FROM category
-        WHERE parent_id = #{parentId};
-    """)
-    public List<CategoryVO> listThirdLevelCategories(Integer parentId);
+    public List<CategoryVO> listCategories(Integer parentId);
 }
