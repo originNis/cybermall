@@ -3,6 +3,7 @@ package com.rybin.cybermall.controller;
 import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.service.CategoryService;
 import com.rybin.cybermall.service.IndexService;
+import com.rybin.cybermall.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -20,6 +21,8 @@ public class IndexController {
     IndexService indexService;
     @Resource
     CategoryService categoryService;
+    @Resource
+    ProductService productService;
 
     @Operation(summary = "首页轮播图展示", description = "返回在首页展示的轮播图的信息")
     @GetMapping("/indexImgs")
@@ -31,5 +34,11 @@ public class IndexController {
     @GetMapping("/listCategories")
     public ResultVO listCategories() {
         return categoryService.listCategories();
+    }
+
+    @Operation(summary = "推荐商品展示", description = "根据推荐算法返回推荐商品")
+    @GetMapping("list-recommendations")
+    public ResultVO listRecommendations() {
+        return productService.listRecommendations();
     }
 }
