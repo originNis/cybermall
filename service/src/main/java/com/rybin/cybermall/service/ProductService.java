@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ProductService {
     ResultVO listRecommendations();
+
+    ResultVO getProductInfoById(String pid);
 }
