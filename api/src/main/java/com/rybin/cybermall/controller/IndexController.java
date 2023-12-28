@@ -36,9 +36,15 @@ public class IndexController {
         return categoryService.listCategories();
     }
 
-    @Operation(summary = "推荐商品展示", description = "根据推荐算法返回推荐商品")
-    @GetMapping("list-recommendations")
+    @Operation(summary = "新品推荐展示", description = "根据推荐算法返回推荐商品")
+    @GetMapping("/list-recommendations")
     public ResultVO listRecommendations() {
         return productService.listRecommendations();
+    }
+
+    @Operation(summary = "按类别推荐商品", description = "按类别推荐商品")
+    @GetMapping("/category-recommendations")
+    public ResultVO listFirstLevelCategories() {
+        return categoryService.listFirstLevelCategories();
     }
 }

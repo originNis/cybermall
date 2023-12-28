@@ -68,8 +68,10 @@ public class CategoryVO {
      */
     private String categoryBgColor;
 
-    /**
-     * 存放子分类，用于在轮播图展示等
-     */
+
+    //存放子分类，用于在轮播图展示等
     private List<CategoryVO> subcategories;
+
+    // 存放商品列表，用于在分类页展示等
+    private List<ProductVO> products;
 }

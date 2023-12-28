@@ -47,4 +47,30 @@ public interface ProductDAO extends BaseMapper<ProductVO> {
         WHERE item_id = #{itemId}
     """)
     public List<ProductImg> listImgs(Integer itemId);
+
+    @Select("""
+        SELECT product_id,
+        product_name,
+        category_id,
+        root_category_id,
+        content,
+        sold_num,
+        product_status,
+        create_time,
+        update_time
+        FROM product
+        WHERE root_category_id = #{categoryId}
+        ORDER BY sold_num
+        LIMIT 0, #{size}
+    """)
+    @Results({
+            @Result(column = "product_id",
+                    property = "imgs",
+                    many = @Many(select = "com.rybin.cybermall.mapper.ProductDAO.listImgs")
+            ),
+            @Result(column = "product_id",
+                    property = "productId"
+            )
+    })
+    public List<ProductVO> listProductsByRootCategory(Integer categoryId, Integer size);
 }

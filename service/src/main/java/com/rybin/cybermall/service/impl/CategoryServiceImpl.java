@@ -20,4 +20,11 @@ public class CategoryServiceImpl implements CategoryService {
         List<CategoryVO> categoryVOS = categoryDAO.listCategories(0);
         return new ResultVO(ResponseStatus.SUCCESS, "success", categoryVOS);
     }
+
+    @Override
+    public ResultVO listFirstLevelCategories() {
+        // 可以设置按类别推荐的商品数量，这里是6件商品
+        List<CategoryVO> categoryVOS = categoryDAO.listFirstLevelProducts(6);
+        return new ResultVO(ResponseStatus.SUCCESS, "success", categoryVOS);
+    }
 }
