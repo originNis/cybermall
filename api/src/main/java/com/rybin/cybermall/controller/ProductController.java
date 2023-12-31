@@ -20,4 +20,10 @@ public class ProductController {
     public ResultVO getProductDetail(@PathVariable("pid") String pid) {
         return productService.getProductInfoById(pid);
     }
+
+    @Operation(summary = "商品参数", description = "返回商品参数信息，例如生产地、使用方式等")
+    @GetMapping("/param/{pid}")
+    public ResultVO getProductParams(@PathVariable("pid") String pid) {
+        return productService.getProductParams(pid);
+    }
 }

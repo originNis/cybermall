@@ -9,4 +9,6 @@ public interface ProductService {
     ResultVO listRecommendations();
 
     ResultVO getProductInfoById(String pid);
+
+    ResultVO getProductParams(String pid);
 }

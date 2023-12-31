@@ -6,9 +6,11 @@ import com.rybin.cybermall.beans.VO.ProductVO;
 import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.beans.entity.Product;
 import com.rybin.cybermall.beans.entity.ProductImg;
+import com.rybin.cybermall.beans.entity.ProductParams;
 import com.rybin.cybermall.beans.entity.ProductSku;
 import com.rybin.cybermall.mapper.ProductDAO;
 import com.rybin.cybermall.mapper.ProductImgDAO;
+import com.rybin.cybermall.mapper.ProductParamsDAO;
 import com.rybin.cybermall.mapper.ProductSkuDAO;
 import com.rybin.cybermall.service.ProductService;
 import jakarta.annotation.Resource;
@@ -25,6 +27,8 @@ public class ProductServiceImpl implements ProductService {
     ProductImgDAO productImgDAO;
     @Resource
     ProductSkuDAO productSkuDAO;
+    @Resource
+    ProductParamsDAO productParamsDAO;
 
     @Override
     public ResultVO listRecommendations() {
@@ -53,6 +57,18 @@ public class ProductServiceImpl implements ProductService {
             basicInfo.put("productSkus", productSkus);
 
             return new ResultVO(ResponseStatus.SUCCESS, "success", basicInfo);
+        }
+    }
+
+    @Override
+    public ResultVO getProductParams(String pid) {
+        List<ProductParams> productParams = productParamsDAO.selectList(new QueryWrapper<ProductParams>()
+                .eq("product_id", pid));
+
+        if (productParams.size() > 0) {
+            return new ResultVO(ResponseStatus.SUCCESS, "success", productParams.get(0));
+        } else {
+            return new ResultVO(ResponseStatus.FAIL, "商品参数不存在", null);
         }
     }
 }
