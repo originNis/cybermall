@@ -1,11 +1,15 @@
 package com.rybin.cybermall.controller;
 
+import com.rybin.cybermall.beans.ResponseStatus;
+import com.rybin.cybermall.beans.VO.ProductCommentsVO;
 import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "商品详情页", description = "展示商品信息、用户评价、商品参数等")
 @RestController
@@ -25,5 +29,11 @@ public class ProductController {
     @GetMapping("/param/{pid}")
     public ResultVO getProductParams(@PathVariable("pid") String pid) {
         return productService.getProductParams(pid);
+    }
+
+    @Operation(summary = "商品评论", description = "返回商品评论信息")
+    @GetMapping("/product-comments/{pid}")
+    public ResultVO getCommentsByProductId(@PathVariable String pid) {
+        return productService.getCommentsByProductId(pid);
     }
 }

@@ -2,16 +2,14 @@ package com.rybin.cybermall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rybin.cybermall.beans.ResponseStatus;
+import com.rybin.cybermall.beans.VO.ProductCommentsVO;
 import com.rybin.cybermall.beans.VO.ProductVO;
 import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.beans.entity.Product;
 import com.rybin.cybermall.beans.entity.ProductImg;
 import com.rybin.cybermall.beans.entity.ProductParams;
 import com.rybin.cybermall.beans.entity.ProductSku;
-import com.rybin.cybermall.mapper.ProductDAO;
-import com.rybin.cybermall.mapper.ProductImgDAO;
-import com.rybin.cybermall.mapper.ProductParamsDAO;
-import com.rybin.cybermall.mapper.ProductSkuDAO;
+import com.rybin.cybermall.mapper.*;
 import com.rybin.cybermall.service.ProductService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -29,6 +27,8 @@ public class ProductServiceImpl implements ProductService {
     ProductSkuDAO productSkuDAO;
     @Resource
     ProductParamsDAO productParamsDAO;
+    @Resource
+    ProductCommentsDAO productCommentsDAO;
 
     @Override
     public ResultVO listRecommendations() {
@@ -70,5 +70,11 @@ public class ProductServiceImpl implements ProductService {
         } else {
             return new ResultVO(ResponseStatus.FAIL, "商品参数不存在", null);
         }
+    }
+
+    @Override
+    public ResultVO getCommentsByProductId(String pid) {
+        List<ProductCommentsVO> comments = productCommentsDAO.getCommentsByProductId(pid);
+        return new ResultVO(ResponseStatus.SUCCESS, "success", comments);
     }
 }

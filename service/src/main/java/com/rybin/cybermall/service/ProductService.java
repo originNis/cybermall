@@ -11,4 +11,6 @@ public interface ProductService {
     ResultVO getProductInfoById(String pid);
 
     ResultVO getProductParams(String pid);
+
+    ResultVO getCommentsByProductId(String pid);
 }
