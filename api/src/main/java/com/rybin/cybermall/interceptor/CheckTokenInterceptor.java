@@ -11,6 +11,7 @@ import com.rybin.cybermall.beans.VO.ResultVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
@@ -22,6 +23,10 @@ public class CheckTokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+        if ("OPTIONS".equals(request.getMethod().toUpperCase())) {
+            return true;
+        }
+
         String token = request.getHeader("token");
 
         if (token == null) {
