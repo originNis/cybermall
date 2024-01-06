@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
                         .sign(Algorithm.HMAC256("cybermall")); // 设置解密的密码并生成token
 
 
-               return new ResultVO(ResponseStatus.SUCCESS, "登陆成功", user);
+               return new ResultVO(ResponseStatus.SUCCESS, token, user);
             } else {
                 return new ResultVO(ResponseStatus.FAIL, "密码不正确", null);
             }
