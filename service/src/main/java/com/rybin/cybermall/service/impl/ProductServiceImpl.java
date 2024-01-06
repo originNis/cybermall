@@ -5,12 +5,10 @@ import com.rybin.cybermall.beans.ResponseStatus;
 import com.rybin.cybermall.beans.VO.ProductCommentsVO;
 import com.rybin.cybermall.beans.VO.ProductVO;
 import com.rybin.cybermall.beans.VO.ResultVO;
-import com.rybin.cybermall.beans.entity.Product;
-import com.rybin.cybermall.beans.entity.ProductImg;
-import com.rybin.cybermall.beans.entity.ProductParams;
-import com.rybin.cybermall.beans.entity.ProductSku;
+import com.rybin.cybermall.beans.entity.*;
 import com.rybin.cybermall.mapper.*;
 import com.rybin.cybermall.service.ProductService;
+import com.rybin.cybermall.utils.PageHelper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -73,8 +71,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResultVO getCommentsByProductId(String pid) {
-        List<ProductCommentsVO> comments = productCommentsDAO.getCommentsByProductId(pid);
-        return new ResultVO(ResponseStatus.SUCCESS, "success", comments);
+    public ResultVO getCommentsByProductId(String pid, int page, int pageSize) {
+        // 求该商品的总评论数
+        int count = (int)productCommentsDAO.selectCount(new QueryWrapper<ProductComments>().eq("product_id", pid)).longValue();
+        // 对于给定的页面大小，求页面总数
+        int pageNum = (count + pageSize - 1) / pageSize;
+        // 获取该页的评论
+        List<ProductCommentsVO> comments = productCommentsDAO.getCommentsByProductId(pid,  (page - 1) * pageSize, pageSize);
+
+        return new ResultVO(ResponseStatus.SUCCESS, "success", new PageHelper<>(count, pageNum, comments));
     }
 }

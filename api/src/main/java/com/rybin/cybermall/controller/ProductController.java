@@ -33,7 +33,9 @@ public class ProductController {
 
     @Operation(summary = "商品评论", description = "返回商品评论信息")
     @GetMapping("/product-comments/{pid}")
-    public ResultVO getCommentsByProductId(@PathVariable String pid) {
-        return productService.getCommentsByProductId(pid);
+    public ResultVO getCommentsByProductId(@PathVariable String pid,
+                                           @RequestParam(value = "page") Integer page,
+                                           @RequestParam(value = "size") Integer size) {
+        return productService.getCommentsByProductId(pid,  page, size);
     }
 }

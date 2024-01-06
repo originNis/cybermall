@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rybin.cybermall.beans.VO.ProductCommentsVO;
 import com.rybin.cybermall.beans.entity.ProductComments;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -33,7 +32,8 @@ public interface ProductCommentsDAO extends BaseMapper<ProductComments> {
         users.nickname,
         users.user_img
         FROM users INNER JOIN  product_comments ON users.user_id = product_comments.user_id
-        WHERE product_comments.product_id = #{productId};
+        WHERE product_comments.product_id = #{productId}
+        LIMIT #{start}, #{limit};
     """)
-    public List<ProductCommentsVO> getCommentsByProductId(String productId);
+    public List<ProductCommentsVO> getCommentsByProductId(String productId, Integer start, Integer limit);
 }
