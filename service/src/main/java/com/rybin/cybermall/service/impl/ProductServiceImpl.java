@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -80,5 +81,33 @@ public class ProductServiceImpl implements ProductService {
         List<ProductCommentsVO> comments = productCommentsDAO.getCommentsByProductId(pid,  (page - 1) * pageSize, pageSize);
 
         return new ResultVO(ResponseStatus.SUCCESS, "success", new PageHelper<>(count, pageNum, comments));
+    }
+
+    @Override
+    public ResultVO getCommentsStatisticsByProductId(String pid) {
+        int count = (int)productCommentsDAO.selectCount(new QueryWrapper<ProductComments>().eq("product_id", pid)).longValue();
+        int good = (int)productCommentsDAO.selectCount(new QueryWrapper<ProductComments>()
+                .eq("product_id", pid)
+                .eq("comm_type", 1)
+        ).longValue();
+        int mid = (int)productCommentsDAO.selectCount(new QueryWrapper<ProductComments>()
+                .eq("product_id", pid)
+                .eq("comm_type", 0)
+        ).longValue();
+        int bad = (int)productCommentsDAO.selectCount(new QueryWrapper<ProductComments>()
+                .eq("product_id", pid)
+                .eq("comm_type", -1)
+        ).longValue();
+        String percent = (good * 100.0 / count) + "";
+        percent = percent.substring(0, percent.indexOf(".") + 3);
+
+        Map map = new HashMap();
+        map.put("count", count);
+        map.put("good", good);
+        map.put("mid", mid);
+        map.put("bad", bad);
+        map.put("percent", percent);
+
+        return new ResultVO(ResponseStatus.SUCCESS, "success", map);
     }
 }

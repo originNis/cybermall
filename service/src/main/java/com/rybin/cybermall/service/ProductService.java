@@ -12,4 +12,6 @@ public interface ProductService {
 
     ResultVO getProductParams(String pid);
     ResultVO getCommentsByProductId(String pid, int page, int pageSize);
+
+    ResultVO getCommentsStatisticsByProductId(String pid);
 }

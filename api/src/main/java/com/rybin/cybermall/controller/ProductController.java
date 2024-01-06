@@ -38,4 +38,10 @@ public class ProductController {
                                            @RequestParam(value = "size") Integer size) {
         return productService.getCommentsByProductId(pid,  page, size);
     }
+
+    @Operation(summary = "商品评论统计", description = "返回商品评论统计信息，例如好评数、中评数、差评数等")
+    @GetMapping("/product-statistics/{pid}")
+    public ResultVO getCommentsStatisticsByProductId(@PathVariable String pid) {
+        return productService.getCommentsStatisticsByProductId(pid);
+    }
 }
