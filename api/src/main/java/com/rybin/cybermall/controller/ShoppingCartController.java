@@ -27,7 +27,7 @@ public class ShoppingCartController {
 
     @Operation(summary = "购物车添加商品")
     @PostMapping("/add")
-    public ResultVO addToShoppingCart(ShoppingCart shoppingCart, String token) {
+    public ResultVO addToShoppingCart(@RequestBody ShoppingCart shoppingCart, @RequestHeader("token") String token) {
         shoppingCartService.addToShoppingCart(shoppingCart);
         return new ResultVO(ResponseStatus.SUCCESS, "success", null);
     }

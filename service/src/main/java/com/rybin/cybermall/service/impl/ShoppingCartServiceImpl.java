@@ -6,13 +6,19 @@ import com.rybin.cybermall.service.ShoppingCartService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Resource
     private ShoppingCartDAO shoppingCartDAO;
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     @Override
     public int addToShoppingCart(ShoppingCart shoppingCart) {
+        shoppingCart.setCartTime(sdf.format(new Date()));
         return shoppingCartDAO.insert(shoppingCart);
     }
 }
