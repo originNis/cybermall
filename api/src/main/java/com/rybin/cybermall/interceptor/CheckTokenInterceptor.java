@@ -30,7 +30,7 @@ public class CheckTokenInterceptor implements HandlerInterceptor {
         String token = request.getHeader("token");
 
         if (token == null) {
-            doResponse(response, new ResultVO(ResponseStatus.FAIL, "请先登录", null));
+            doResponse(response, new ResultVO(ResponseStatus.NOT_LOGIN, "请先登录", null));
         } else {
             // 按照该算法与密钥解析token
             JWTVerifier parser = JWT.require(Algorithm.HMAC256("cybermall")).build();
@@ -42,9 +42,9 @@ public class CheckTokenInterceptor implements HandlerInterceptor {
                 //System.out.println("获取购物车中商品列表:" + decodedJWT.getSubject());
                 return true;
             } catch (TokenExpiredException e) {
-                doResponse(response, new ResultVO(ResponseStatus.FAIL, "登录已过期", null));
+                doResponse(response, new ResultVO(ResponseStatus.LOGIN_OVERDUE, "登录已过期", null));
             } catch (Exception e) {
-                doResponse(response, new ResultVO(ResponseStatus.FAIL, "Token验证失败", null));
+                doResponse(response, new ResultVO(ResponseStatus.INVALID_TOKEN, "Token验证失败", null));
             }
         }
 
