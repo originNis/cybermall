@@ -1,5 +1,6 @@
 package com.rybin.cybermall.service.impl;
 
+import com.rybin.cybermall.beans.VO.ShoppingCartVO;
 import com.rybin.cybermall.beans.entity.ShoppingCart;
 import com.rybin.cybermall.mapper.ShoppingCartDAO;
 import com.rybin.cybermall.service.ShoppingCartService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -20,5 +22,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public int addToShoppingCart(ShoppingCart shoppingCart) {
         shoppingCart.setCartTime(sdf.format(new Date()));
         return shoppingCartDAO.insert(shoppingCart);
+    }
+
+    @Override
+    public List<ShoppingCartVO> listShoppingCartByUserId(Integer userId) {
+        return shoppingCartDAO.selectShoppingCartByUserId(userId);
     }
 }
