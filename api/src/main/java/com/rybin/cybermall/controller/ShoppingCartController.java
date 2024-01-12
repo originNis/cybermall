@@ -41,4 +41,14 @@ public class ShoppingCartController {
         List<ShoppingCartVO> shoppingCartVOS = shoppingCartService.listShoppingCartByUserId(userId);
         return new ResultVO(ResponseStatus.SUCCESS, "success", shoppingCartVOS);
     }
+
+    @PutMapping("/update/{cid}/{num}")
+    public ResultVO updateCartNum(@PathVariable("cid") Integer cartId, @PathVariable("num") Integer cartNum) {
+        int res = shoppingCartService.updateCartNum(cartId, cartNum);
+        if (res > 0) {
+            return new ResultVO(ResponseStatus.SUCCESS, "success", null);
+        } else {
+            return new ResultVO(ResponseStatus.FAIL, "fail", null);
+        }
+    }
 }

@@ -6,6 +6,7 @@ import com.rybin.cybermall.beans.entity.ShoppingCart;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -35,4 +36,11 @@ public interface ShoppingCartDAO extends BaseMapper<ShoppingCart> {
     @Result(column = "product_name", property = "productName")
     @Result(column = "url", property = "productImg")
     List<ShoppingCartVO> selectShoppingCartByUserId(Integer userId);
+
+    @Update("""
+        UPDATE shopping_cart
+        SET cart_num = #{cartNum}
+        WHERE cart_id = #{cartId}
+    """)
+    Integer updateCartNum(Integer cartId, Integer cartNum);
 }

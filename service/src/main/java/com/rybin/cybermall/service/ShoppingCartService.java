@@ -9,4 +9,6 @@ public interface ShoppingCartService {
     int addToShoppingCart(ShoppingCart shoppingCart);
 
     List<ShoppingCartVO> listShoppingCartByUserId(Integer userId);
+
+    Integer updateCartNum(Integer cartId, Integer num);
 }

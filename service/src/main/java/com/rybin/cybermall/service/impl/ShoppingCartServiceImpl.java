@@ -28,4 +28,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public List<ShoppingCartVO> listShoppingCartByUserId(Integer userId) {
         return shoppingCartDAO.selectShoppingCartByUserId(userId);
     }
+
+    @Override
+    public Integer updateCartNum(Integer cartId, Integer num) {
+        return shoppingCartDAO.updateCartNum(cartId, num);
+    }
 }
