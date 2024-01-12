@@ -3,10 +3,7 @@ package com.rybin.cybermall.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rybin.cybermall.beans.VO.ShoppingCartVO;
 import com.rybin.cybermall.beans.entity.ShoppingCart;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -30,7 +27,7 @@ public interface ShoppingCartDAO extends BaseMapper<ShoppingCart> {
         INNER JOIN product b
         INNER JOIN product_img c
         INNER JOIN product_sku s
-        ON a.product_id = b.product_id AND b.product_id = c.item_id AND b.product_id = s.product_id
+        ON a.product_id = b.product_id AND b.product_id = c.item_id AND a.sku_id = s.sku_id
         WHERE a.user_id = #{userId} AND c.is_main = 1
     """)
     @Result(column = "product_name", property = "productName")
@@ -43,4 +40,31 @@ public interface ShoppingCartDAO extends BaseMapper<ShoppingCart> {
         WHERE cart_id = #{cartId}
     """)
     Integer updateCartNum(Integer cartId, Integer cartNum);
+
+    @Select("""
+        <script>
+            SELECT a.cart_id,
+            a.product_id,
+            a.sku_id,
+            a.user_id,
+            a.cart_num,
+            a.cart_time,
+            a.product_price,
+            a.sku_props,
+            b.product_name,
+            c.url,
+            s.original_price,
+            s.sell_price
+            FROM shopping_cart a
+            INNER JOIN product b
+            INNER JOIN product_img c
+            INNER JOIN product_sku s
+            ON a.product_id = b.product_id AND b.product_id = c.item_id AND a.sku_id = s.sku_id
+            WHERE c.is_main = 1 AND a.cart_id IN
+            <foreach collection = 'cids' item = 'cid' open = '(' separator = ',' close = ')'>
+                #{cid}
+            </foreach>
+        </script>
+    """)
+    List<ShoppingCartVO> selectShoppingCartByListCartId(@Param("cids") List<Integer> cids);
 }

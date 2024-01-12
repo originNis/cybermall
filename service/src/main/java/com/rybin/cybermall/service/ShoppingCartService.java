@@ -11,4 +11,6 @@ public interface ShoppingCartService {
     List<ShoppingCartVO> listShoppingCartByUserId(Integer userId);
 
     Integer updateCartNum(Integer cartId, Integer num);
+
+    List<ShoppingCartVO> selectShoppingCartByListCartId(String cids);
 }

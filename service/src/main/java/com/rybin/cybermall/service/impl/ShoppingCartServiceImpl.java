@@ -8,6 +8,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,5 +33,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public Integer updateCartNum(Integer cartId, Integer num) {
         return shoppingCartDAO.updateCartNum(cartId, num);
+    }
+
+    @Override
+    public List<ShoppingCartVO> selectShoppingCartByListCartId(String cids) {
+        String[] split = cids.split(",");
+        List<Integer> list = new ArrayList<>();
+        for (String s : split) {
+            list.add(Integer.parseInt(s));
+        }
+        return shoppingCartDAO.selectShoppingCartByListCartId(list);
     }
 }
