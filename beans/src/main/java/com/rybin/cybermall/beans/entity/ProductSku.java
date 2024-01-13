@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class ProductSku implements Serializable {
     /**
      * sku编号
      */
+    @TableId
     private String skuId;
 
     /**
@@ -55,12 +57,12 @@ public class ProductSku implements Serializable {
     /**
      * 原价
      */
-    private Integer originalPrice;
+    private Double originalPrice;
 
     /**
      * 销售价格
      */
-    private Integer sellPrice;
+    private Double sellPrice;
 
     /**
      * 折扣力度

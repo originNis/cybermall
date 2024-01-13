@@ -22,7 +22,9 @@ public interface ShoppingCartDAO extends BaseMapper<ShoppingCart> {
         b.product_name,
         c.url,
         s.original_price,
-        s.sell_price
+        s.sell_price,
+        s.stock,
+        s.sku_name
         FROM shopping_cart a
         INNER JOIN product b
         INNER JOIN product_img c
@@ -32,6 +34,7 @@ public interface ShoppingCartDAO extends BaseMapper<ShoppingCart> {
     """)
     @Result(column = "product_name", property = "productName")
     @Result(column = "url", property = "productImg")
+    @Result(column = "stock", property = "skuStock")
     List<ShoppingCartVO> selectShoppingCartByUserId(Integer userId);
 
     @Update("""
@@ -54,7 +57,9 @@ public interface ShoppingCartDAO extends BaseMapper<ShoppingCart> {
             b.product_name,
             c.url,
             s.original_price,
-            s.sell_price
+            s.sell_price,
+            s.stock,
+            s.sku_name
             FROM shopping_cart a
             INNER JOIN product b
             INNER JOIN product_img c
@@ -66,5 +71,7 @@ public interface ShoppingCartDAO extends BaseMapper<ShoppingCart> {
             </foreach>
         </script>
     """)
+    @Result(column = "url", property = "productImg")
+    @Result(column = "stock", property = "skuStock")
     List<ShoppingCartVO> selectShoppingCartByListCartId(@Param("cids") List<Integer> cids);
 }
