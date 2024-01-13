@@ -15,6 +15,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
     // 多个数据库操作，需要使用事务
     @Override
     @Transactional
-    public ResultVO addOrder(String cids, Orders order) {
+    public ResultVO addOrder(String cids, Orders order) throws SQLException {
         /************ 插入订单表 **********************************/
         // 主键为varchar，需要自己设置主键
         order.setOrderId(UUID.randomUUID().toString().replace("-", ""));
@@ -86,9 +87,12 @@ public class OrderServiceImpl implements OrderService {
                 if (productSkuDAO.updateById(productSku) <= 0) {
                     return new ResultVO(ResponseStatus.SUCCESS, "库存更新失败", null);
                 }
+
+                // 删除该购物车商品
+                shoppingCartDAO.deleteById(sc.getCartId());
             }
 
-            return new ResultVO(ResponseStatus.SUCCESS, "订单创建成功", null);
+            return new ResultVO(ResponseStatus.SUCCESS, "订单创建成功", order.getOrderId());
         } else {
             return new ResultVO(ResponseStatus.FAIL,  "插入订单表失败",  null);
         }
