@@ -4,7 +4,8 @@ import com.rybin.cybermall.beans.VO.ResultVO;
 import com.rybin.cybermall.beans.entity.Orders;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 public interface OrderService {
-    ResultVO addOrder(String cids, Orders order) throws SQLException;
+    Map<String, String> addOrder(String cids, Orders order) throws SQLException;
 }

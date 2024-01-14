@@ -56,12 +56,12 @@ public class Orders implements Serializable {
     /**
      * 订单总价格
      */
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     /**
      * 实际支付总价格
      */
-    private Integer actualAmount;
+    private Double actualAmount;
 
     /**
      * 支付方式 1:微信 2:支付宝

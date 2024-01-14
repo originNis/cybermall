@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -35,7 +32,9 @@ public class OrderServiceImpl implements OrderService {
     // 多个数据库操作，需要使用事务
     @Override
     @Transactional
-    public ResultVO addOrder(String cids, Orders order) throws SQLException {
+    public Map<String, String> addOrder(String cids, Orders order) throws SQLException {
+        // 返回的map
+        Map<String, String> returnMap = new HashMap<>();
         /************ 插入订单表 **********************************/
         // 主键为varchar，需要自己设置主键
         order.setOrderId(UUID.randomUUID().toString().replace("-", ""));
@@ -60,6 +59,10 @@ public class OrderServiceImpl implements OrderService {
 
         /************ 订单表插入成功则向订单快照表插入快照 **********************************/
         if (res1 > 0) {
+            returnMap.put("orderId", order.getOrderId());
+            returnMap.put("productsName", untitled);
+            returnMap.put("amount", order.getActualAmount() + "");
+
             for (ShoppingCartVO sc : shoppingCartVOS) {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setItemId(System.currentTimeMillis() + "");
@@ -77,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
 
                 if (orderItemDAO.insert(orderItem) <= 0) {
                     // 插入快照失败
-                    return new ResultVO(ResponseStatus.SUCCESS, "订单快照保存失败", null);
+                    return null;
                 }
 
                 // 更新库存
@@ -85,16 +88,16 @@ public class OrderServiceImpl implements OrderService {
                 productSku.setSkuId(sc.getSkuId());
                 productSku.setStock(Integer.parseInt(sc.getSkuStock()) - Integer.parseInt(sc.getCartNum()));
                 if (productSkuDAO.updateById(productSku) <= 0) {
-                    return new ResultVO(ResponseStatus.SUCCESS, "库存更新失败", null);
+                    return null;
                 }
 
                 // 删除该购物车商品
                 shoppingCartDAO.deleteById(sc.getCartId());
             }
 
-            return new ResultVO(ResponseStatus.SUCCESS, "订单创建成功", order.getOrderId());
+            return returnMap;
         } else {
-            return new ResultVO(ResponseStatus.FAIL,  "插入订单表失败",  null);
+            return null;
         }
     }
 }
